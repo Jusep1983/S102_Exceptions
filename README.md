@@ -26,7 +26,8 @@ Abrir IntelliJ IDEA.
 En la pantalla de inicio, seleccionar "Get from VCS" (Obtener desde el control de versiones).
 En la pestaña "Version Control", seleccionar Git.
 En el campo "URL", pegar el enlace del repositorio:
-https://github.com/Jusep1983/S102_Exceptions.git
+
+  https://github.com/Jusep1983/S102_Exceptions.git
 Elegir la carpeta donde se guardará el proyecto y hacer clic en "Clone".
 Una vez clonado, IntelliJ IDEA detectará el proyecto y te pedirá que lo importes como un proyecto de Java.
 Configurar el JDK (si es necesario):
