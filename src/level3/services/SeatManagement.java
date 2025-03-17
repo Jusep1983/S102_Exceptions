@@ -10,18 +10,19 @@ public class SeatManagement {
     private ArrayList<CinemaSeat> cinemaSeats;
 
     public SeatManagement() {
-        this.cinemaSeats = new ArrayList<CinemaSeat>();
+        this.cinemaSeats = new ArrayList<>();
     }
 
     public ArrayList<CinemaSeat> getCinemaSeats() {
         return cinemaSeats;
     }
 
-    public int findCinemaSeat(int row, int seatNumber) {
+    public int findCinemaSeat(int row, int seatNumber, String person) {
         int indexCinemaSeat = -1, i = 0;
         boolean found = false;
+        CinemaSeat seat = new CinemaSeat(row, seatNumber, person);
         while (i < this.cinemaSeats.size() && !found) {
-            if ((row == cinemaSeats.get(i).getRow()) && (seatNumber == cinemaSeats.get(i).getSeatNumber())) {
+            if (cinemaSeats.get(i).equals(seat)) {
                 indexCinemaSeat = i;
                 found = true;
             }
@@ -31,27 +32,28 @@ public class SeatManagement {
     }
 
     public void addCinemaSeat(CinemaSeat cinemaSeat) {
+        String person = cinemaSeat.getPerson();
         int row = cinemaSeat.getRow();
         int seatNumber = cinemaSeat.getSeatNumber();
-        int indexCinemaSeat = findCinemaSeat(row, seatNumber);
+        int indexCinemaSeat = findCinemaSeat(row, seatNumber, person);
         try {
             if (indexCinemaSeat != -1) {
                 throw new ExceptionSeatOccupied("La butaca está ocupada");
             }
             this.cinemaSeats.add(cinemaSeat);
-            System.out.println("Reserva " + cinemaSeat + " realizada con éxito");
+            System.out.println("Reserva: " + cinemaSeat + ", realizada con éxito");
         } catch (ExceptionSeatOccupied e) {
             System.out.println("Error, " + e.getMessage());
         }
     }
 
-    public void removeCinemaSeat(int row, int seatNumber) {
-        int indexCinemaSeat = findCinemaSeat(row, seatNumber);
+    public void removeCinemaSeat(int row, int seatNumber, String person) {
+        int indexCinemaSeat = findCinemaSeat(row, seatNumber, person);
         try {
             if (indexCinemaSeat == -1) {
                 throw new ExceptionFreeSeat("La butaca está libre");
             }
-            System.out.println("Reserva " + this.cinemaSeats.get(indexCinemaSeat) + " eliminada");
+            System.out.println("Reserva: " + this.cinemaSeats.get(indexCinemaSeat) + ", eliminada");
             this.cinemaSeats.remove(indexCinemaSeat);
         } catch (ExceptionFreeSeat e) {
             System.out.println("Error, " + e.getMessage());

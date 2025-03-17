@@ -44,7 +44,7 @@ public class CinemaManagement {
     public void showCinemaSeatByPerson() {
         int seatCounter = 0;
         String answer = "";
-        String person = enterPerson("Introduce el nombre de la persona del cual mostrar reservas ");
+        String person = enterPerson("Introduce el nombre de la persona del cual mostrar reservas: ");
         if (this.cinema.getSeatManagement().getCinemaSeats().isEmpty()) {
             System.out.println("No existe ningún asiento reservado por " + person + " en la sala");
         } else {
@@ -65,14 +65,15 @@ public class CinemaManagement {
     public void reserveCinemaSeat() {
         int seatNumber = enterCinemaSeat();
         int row = enterRow();
-        String person = enterPerson("Introduce el nombre de la persona que va a hacer la reserva ");
+        String person = enterPerson("Introduce el nombre de la persona que va a hacer la reserva: ");
         this.cinema.getSeatManagement().addCinemaSeat(new CinemaSeat(row, seatNumber, person));
     }
 
     public void cancelReservation() {
+        String person = enterPerson("Introduce el nombre de la persona a la que cancelar la reserva: ");
         int seatNumber = enterCinemaSeat();
         int row = enterRow();
-        cinema.getSeatManagement().removeCinemaSeat(row, seatNumber);
+        cinema.getSeatManagement().removeCinemaSeat(row, seatNumber, person);
     }
 
     public void cancelReservationByPerson() {
@@ -80,9 +81,8 @@ public class CinemaManagement {
         String person = enterPerson("Introduce el nombre de la persona a la que cancelar las reservas: ");
         for (int i = 0; i < this.cinema.getSeatManagement().getCinemaSeats().size(); i++) {
             if (this.cinema.getSeatManagement().getCinemaSeats().get(i).getPerson().equalsIgnoreCase(person)) {
-                int seatNumber = this.cinema.getSeatManagement().getCinemaSeats().get(i).getSeatNumber();
-                int row = this.cinema.getSeatManagement().getCinemaSeats().get(i).getRow();
-                cinema.getSeatManagement().removeCinemaSeat(row, seatNumber);
+                cinema.getSeatManagement().getCinemaSeats().remove(i);
+                i--; // Offsets deleted position
                 seatCounter++;
             }
         }
@@ -95,7 +95,7 @@ public class CinemaManagement {
 
     public String enterPerson(String message) throws IncorrectPersonNameException {
         boolean correct = false;
-        String person = "";
+        String person;
         do {
             person = KeyboardInput.readString(message);
             try {

@@ -24,7 +24,7 @@ public class CinemaSeat {
     }
 
     public boolean equals(CinemaSeat seat) {
-        boolean equal= false;
+        boolean equal = false;
         if (this.row == seat.getRow() && this.seatNumber == seat.getSeatNumber()) {
             equal = true;
         }
