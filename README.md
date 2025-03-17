@@ -1,13 +1,10 @@
 📄 Descripción - Enunciado del ejercicio
 Este repositorio contiene los 3 niveles de la Tasca S1.02. Exceptions.
 
-El ejercicio trata sobre excepciones abordando los siguientes conceptos:
-
-Excepciones
-
-Manejo de Excepciones en Java
-
-Excepciones marcadas y no marcadas en Java
+  El ejercicio trata sobre excepciones abordando los siguientes conceptos:
+  Excepciones
+  Manejo de Excepciones en Java
+  Excepciones marcadas y no marcadas en Java
 
 
 💻 Tecnologías Utilizadas
