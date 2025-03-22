@@ -28,7 +28,7 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-# Ignorar archivos ExerciseDescription
+# Ignorar archivos: 
 src/level1/ExerciseDescriptionLvl1
 src/level2/ExerciseDescriptionLvl2
 src/level3/ExerciseDescriptionLvl3

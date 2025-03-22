@@ -16,6 +16,10 @@ public class Cinema {
         this.cinemaManagement = new CinemaManagement(this);
     }
 
+    public CinemaManagement getCinemaManagement() {
+        return this.cinemaManagement;
+    }
+
     public SeatManagement getSeatManagement() {
         return seatManagement;
     }
@@ -31,35 +35,9 @@ public class Cinema {
     public void requestInitialData() {
         this.numberOfRows = KeyboardInput.readInteger("Cuantas filas tiene el cine? ");
         this.seatsPerRow = KeyboardInput.readInteger("Cuantas butacas por fila tiene el cine? ");
-    }
-
-    public void start() {
-        boolean exit = false;
-
-        while (!exit) {
-            switch (this.cinemaManagement.menu()) {
-                case 1:
-                    this.cinemaManagement.showCinemaSeats();
-                    break;
-                case 2:
-                    this.cinemaManagement.showCinemaSeatByPerson();
-                    break;
-                case 3:
-                    this.cinemaManagement.reserveCinemaSeat();
-                    break;
-                case 4:
-                    this.cinemaManagement.cancelReservation();
-                    break;
-                case 5:
-                    this.cinemaManagement.cancelReservationByPerson();
-                    break;
-                case 0:
-                    System.out.println("Saliendo de la aplicación...");
-                    exit = true;
-                    break;
-            }
-        }
-
+        System.out.println(
+                "Cine con creado: " + this.numberOfRows + " filas y " + this.seatsPerRow + " butacas por fila"
+        );
     }
 
 }

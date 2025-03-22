@@ -36,7 +36,7 @@ public class Input {
             try {
                 number = SC.nextInt();
                 correct = true;
-            } catch (InputMismatchException ex) {
+            } catch (InputMismatchException e) {
                 System.out.println("Error de formato");
             }
             SC.nextLine();
@@ -54,7 +54,7 @@ public class Input {
             try {
                 number = SC.nextFloat();
                 correct = true;
-            } catch (InputMismatchException ex) {
+            } catch (InputMismatchException e) {
                 System.out.println("Error de formato");
             }
             SC.nextLine();
@@ -65,13 +65,12 @@ public class Input {
     public static double readDouble(String message) {
         double number = 0.0;
         boolean correct = false;
-
         do {
             System.out.print(message);
             try {
                 number = SC.nextDouble();
                 correct = true;
-            } catch (InputMismatchException ex) {
+            } catch (InputMismatchException e) {
                 System.out.println("Error de formato");
             }
             SC.nextLine();

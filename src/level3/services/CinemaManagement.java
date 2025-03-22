@@ -14,20 +14,6 @@ public class CinemaManagement {
         this.cinema = cinema;
     }
 
-    public int menu() {
-        int option = KeyboardInput.readIntegerBetweenOnRange(""" 
-                
-                MENÚ PRINCIPAL CINE
-                1.- Mostrar todos los asientos reservados
-                2.- Mostrar los asientos reservados por una persona
-                3.- Reservar un asiento
-                4.- Anular la reserva de un asiento
-                5.- Anular todas las reservas de una persona
-                0.- Salir
-                """, 0, 5);
-        return option;
-    }
-
     public void showCinemaSeats() {
         String answer = "";
         if (this.cinema.getSeatManagement().getCinemaSeats().isEmpty()) {
@@ -93,7 +79,7 @@ public class CinemaManagement {
         }
     }
 
-    public String enterPerson(String message) throws IncorrectPersonNameException {
+    public String enterPerson(String message){
         boolean correct = false;
         String person;
         do {

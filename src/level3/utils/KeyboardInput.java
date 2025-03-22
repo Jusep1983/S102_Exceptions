@@ -2,6 +2,7 @@ package level3.utils;
 
 import level3.exceptions.EmptyInputException;
 import level3.exceptions.ExceptionValueOutOfRange;
+import level3.exceptions.IncorrectNameException;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -33,11 +34,14 @@ public class KeyboardInput {
             System.out.print(message);
             try {
                 inputStr = SC.nextLine().trim();
+                if (inputStr.matches(".*\\d.*")) {
+                    throw new IncorrectNameException("el nombre no puede contener números");
+                }
                 if (inputStr.isEmpty()) {
-                    throw new EmptyInputException("el String no puede estar vacío");
+                    throw new EmptyInputException("el nombre no puede estar vacío");
                 }
                 correct = true;
-            } catch (EmptyInputException e) {
+            } catch (EmptyInputException | IncorrectNameException e) {
                 System.out.println("Error, " + e.getMessage());
             }
         } while (!correct);
@@ -66,6 +70,20 @@ public class KeyboardInput {
             SC.nextLine();
         } while (!correct);
         return number;
+    }
+
+    public static int menu() {
+        int option = readIntegerBetweenOnRange(""" 
+
+                MENÚ PRINCIPAL CINE
+                1.- Mostrar todos los asientos reservados
+                2.- Mostrar los asientos reservados por una persona
+                3.- Reservar un asiento
+                4.- Anular la reserva de un asiento
+                5.- Anular todas las reservas de una persona
+                0.- Salir
+                """, 0, 5);
+        return option;
     }
 
 

@@ -17,6 +17,18 @@ public class Sale {
         return products;
     }
 
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     public double calculateTotal() {
         double totalCalculation = 0;
         try {
@@ -31,6 +43,7 @@ public class Sale {
         }
         return totalCalculation;
     }
+
 
     @Override
     public String toString() {
