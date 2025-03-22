@@ -36,4 +36,5 @@ public class CinemaSeat {
         return "Fila:" + this.row + ", Asiento: "
                + this.seatNumber + ", Persona: " + this.person;
     }
+    
 }

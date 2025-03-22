@@ -16,4 +16,5 @@ public class MainLevel1 {
             System.out.println("Error capturat " + e.getMessage());
         }
     }
+    
 }

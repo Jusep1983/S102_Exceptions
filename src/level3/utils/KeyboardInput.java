@@ -72,9 +72,9 @@ public class KeyboardInput {
         return number;
     }
 
-    public static int menu() {
+    public static int menuOption() {
         int option = readIntegerBetweenOnRange(""" 
-
+                
                 MENÚ PRINCIPAL CINE
                 1.- Mostrar todos los asientos reservados
                 2.- Mostrar los asientos reservados por una persona
@@ -85,6 +85,5 @@ public class KeyboardInput {
                 """, 0, 5);
         return option;
     }
-
 
 }

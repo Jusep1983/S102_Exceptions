@@ -8,7 +8,7 @@ public class RunMain {
         boolean exit = false;
 
         while (!exit) {
-            switch (KeyboardInput.menu()) {
+            switch (KeyboardInput.menuOption()) {
                 case 1:
                     cinema.getCinemaManagement().showCinemaSeats();
                     break;

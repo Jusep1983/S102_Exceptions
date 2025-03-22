@@ -131,4 +131,5 @@ public class CinemaManagement {
         } while (!correct);
         return seatNumber;
     }
+
 }
