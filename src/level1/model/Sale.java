@@ -17,39 +17,23 @@ public class Sale {
         return products;
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public double calculateTotal() {
-        double totalCalculation = 0;
+    public void calculateTotal() {
         try {
             if (this.products.isEmpty()) {
-                throw new VendaBuidaException("Per fer una venda primer has d’afegir productes");
+                throw new VendaBuidaException("per fer una venda primer has d’afegir productes");
             }
             for (Product product : this.products) {
-                totalCalculation += product.getPrice();
+                this.totalPrice += product.getPrice();
             }
+            System.out.println("El total de vendes és de " + this.totalPrice + "€");
         } catch (VendaBuidaException e) {
-            System.out.println("Error capturat: " + e.getMessage());
+            System.out.println("Error capturat, " + e.getMessage());
         }
-        return totalCalculation;
     }
-
 
     @Override
     public String toString() {
-        return "Sale{" +
-                "products=" + this.products +
-                ", totalPrice=" + this.totalPrice +
-                '}';
+        return "Venta| productes: \n" + this.products + ", totalPrice: " + this.totalPrice + "| ";
     }
+
 }

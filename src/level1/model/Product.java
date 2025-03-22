@@ -13,13 +13,8 @@ public class Product {
         return price;
     }
 
-
-
     @Override
     public String toString() {
-        return "Product{" +
-               "name='" + this.name + '\'' +
-               ", price=" + this.price +
-               '}';
+        return "\tProduct |name: " + this.name  + ", price: " + this.price + "|\n";
     }
 }
