@@ -1,6 +1,6 @@
 package level1;
 
-import level1.exceptions.VendaBuidaException;
+import level1.exceptions.EmptySaleException;
 import level1.model.Product;
 import level1.model.Sale;
 
@@ -11,7 +11,7 @@ public class MainLevel1 {
             sale1.getProducts().add(new Product("banana", 10.2));
             sale1.getProducts().add(new Product("Apple", 5.3));
             sale1.calculateTotal();
-        } catch (VendaBuidaException e) {
+        } catch (EmptySaleException e) {
             System.out.println("Error capturat, " + e.getMessage());
         }
         try{

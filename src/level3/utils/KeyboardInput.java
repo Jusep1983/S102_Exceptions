@@ -29,8 +29,7 @@ public class KeyboardInput {
         }
     }
 
-    public static String checkString(String message) throws EmptyInputException {
-        System.out.print(message);
+    public static String checkString() throws EmptyInputException {
         String inputStr = SC.nextLine().trim();
         if (inputStr.isEmpty()) {
             throw new EmptyInputException("el String no puede estar vacío");
@@ -44,7 +43,8 @@ public class KeyboardInput {
     public static String readString(String message) {
         while (true) {
             try {
-                return checkString(message);
+                System.out.print(message);
+                return checkString();
             } catch (EmptyInputException | IncorrectNameException | NoSuchElementException | IllegalStateException e) {
                 System.out.println("Error, " + e.getMessage());
             }
@@ -62,8 +62,8 @@ public class KeyboardInput {
 
     public static int readIntegerBetweenOnRange(String message, int minimum, int maximum) {
         while (true) {
-            System.out.print(message);
             try {
+                System.out.print(message);
                 String input = SC.nextLine();
                 numberNotEmpty(input);
                 checkRangeNumber(input,minimum,maximum);

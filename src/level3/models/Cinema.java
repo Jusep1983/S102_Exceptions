@@ -33,8 +33,8 @@ public class Cinema {
     }
 
     public void requestInitialData() {
-        this.numberOfRows = KeyboardInput.readIntegerBetweenOnRange("Cuantas filas tiene el cine? ",1,999);
-        this.seatsPerRow = KeyboardInput.readIntegerBetweenOnRange("Cuantas butacas por fila tiene el cine? ",1,999);
+        this.numberOfRows = KeyboardInput.readIntegerBetweenOnRange("Cuantas filas tiene el cine? ", 1, 999);
+        this.seatsPerRow = KeyboardInput.readIntegerBetweenOnRange("Cuantas butacas por fila tiene el cine? ", 1, 999);
         System.out.println(
                 "Cine con creado: " + this.numberOfRows + " filas y " + this.seatsPerRow + " butacas por fila"
         );

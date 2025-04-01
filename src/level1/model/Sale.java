@@ -1,6 +1,6 @@
 package level1.model;
 
-import level1.exceptions.VendaBuidaException;
+import level1.exceptions.EmptySaleException;
 
 import java.util.ArrayList;
 
@@ -17,9 +17,9 @@ public class Sale {
         return products;
     }
 
-    public void calculateTotal() throws VendaBuidaException {
+    public void calculateTotal() throws EmptySaleException {
         if (this.products.isEmpty()) {
-            throw new VendaBuidaException("per fer una venda primer has d’afegir productes");
+            throw new EmptySaleException("per fer una venda primer has d’afegir productes");
         }
         for (Product product : this.products) {
             this.totalPrice += product.getPrice();

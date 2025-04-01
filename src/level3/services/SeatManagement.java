@@ -29,11 +29,12 @@ public class SeatManagement {
         return -1;
     }
 
-    private void checkOccupiedSeat( int indexCinemaSeat){
+    private void checkOccupiedSeat(int indexCinemaSeat) {
         if (indexCinemaSeat != -1) {
             throw new SeatOccupiedException("la butaca está ocupada, no se puede reservar");
         }
     }
+
     public void addCinemaSeat(CinemaSeat cinemaSeat) {
         String person = cinemaSeat.getPerson();
         int row = cinemaSeat.getRow();
@@ -48,11 +49,12 @@ public class SeatManagement {
         }
     }
 
-    private void checkFreeSeat(int indexCinemaSeat){
+    private void checkFreeSeat(int indexCinemaSeat) {
         if (indexCinemaSeat == -1) {
             throw new FreeSeatException("la butaca está libre, no se puede eliminar reserva");
         }
     }
+
     public void removeCinemaSeat(int row, int seatNumber, String person) {
         int indexCinemaSeat = findCinemaSeatWithPerson(row, seatNumber, person);
         try {
@@ -67,7 +69,7 @@ public class SeatManagement {
     public int findCinemaSeat(int row, int seatNumber) {
         int i = 0;
         while (i < this.cinemaSeats.size()) {
-            if (this.cinemaSeats.get(i).equalsSeat(row,seatNumber)) {
+            if (this.cinemaSeats.get(i).equalsSeat(row, seatNumber)) {
                 return i;
             }
             i++;
