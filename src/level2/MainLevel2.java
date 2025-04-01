@@ -1,9 +1,11 @@
 package level2;
 
+import level2.exceptions.EmptyInputException;
+import level2.exceptions.InvalidCharLengthException;
 import level2.utils.Input;
 
 public class MainLevel2 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidCharLengthException, EmptyInputException {
         System.out.println("Solo para programadores: ");
         byte myByte = Input.readByte("Introduce un número en rango byte: ");
         int myInt = Input.readInteger("Introduce un Integer: ");

@@ -1,11 +1,13 @@
 package level3.services;
 
-import level3.exceptions.IncorrectPersonNameException;
 import level3.exceptions.IncorrectSeatException;
 import level3.exceptions.InvalidRowException;
 import level3.models.Cinema;
 import level3.models.CinemaSeat;
 import level3.utils.KeyboardInput;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class CinemaManagement {
     private Cinema cinema;
@@ -14,7 +16,7 @@ public class CinemaManagement {
         this.cinema = cinema;
     }
 
-    public void showCinemaSeats() {
+    public void showAllCinemaSeatsOnCinema() {
         String answer = "";
         if (this.cinema.getSeatManagement().getCinemaSeats().isEmpty()) {
             System.out.println("No hay butacas reservadas en la sala ");
@@ -27,49 +29,79 @@ public class CinemaManagement {
         }
     }
 
-    public void showCinemaSeatByPerson() {
-        int seatCounter = 0;
-        String answer = "";
-        String person = enterPerson("Introduce el nombre de la persona del cual mostrar reservas: ");
+    public void checkCinemaSeatByPerson() {
+        String answer;
+        String person = KeyboardInput.readString("Introduce el nombre de la persona del cual mostrar reservas: ");
         if (this.cinema.getSeatManagement().getCinemaSeats().isEmpty()) {
-            System.out.println("No existe ningún asiento reservado por " + person + " en la sala");
+            answer = ("No existe ningún asiento reservado por " + person + " en la sala");
         } else {
-            for (int i = 0; i < this.cinema.getSeatManagement().getCinemaSeats().size(); i++) {
-                if (this.cinema.getSeatManagement().getCinemaSeats().get(i).getPerson().equalsIgnoreCase(person)) {
-                    answer += "\t" + this.cinema.getSeatManagement().getCinemaSeats().get(i) + "\n";
-                    seatCounter++;
-                }
-            }
-            if (seatCounter > 0) {
-                System.out.println("Asientos reservados por " + person + ":\n" + answer);
-            } else {
-                System.out.println("No existe ningún asiento reservado por " + person + " en la sala");
-            }
+            answer = showCinemaSeatsByPerson(person);
         }
+        System.out.println(answer);
     }
 
-    public void reserveCinemaSeat() {
+    private String showCinemaSeatsByPerson(String person) {
+        String answer = "";
+        int counter = 0;
+        for (int i = 0; i < this.cinema.getSeatManagement().getCinemaSeats().size(); i++) {
+            if (this.cinema.getSeatManagement().getCinemaSeats().get(i).getPerson().equalsIgnoreCase(person)) {
+                answer += "\t" + this.cinema.getSeatManagement().getCinemaSeats().get(i) + "\n";
+                counter++;
+            }
+        }
+        if (counter == 0) {
+            answer = person + " no tiene asientos reservados";
+        }
+        return answer;
+    }
+
+
+    public void reserveSeat() {
         int seatNumber = enterCinemaSeat();
         int row = enterRow();
-        String person = enterPerson("Introduce el nombre de la persona que va a hacer la reserva: ");
+        String person = KeyboardInput.readString("Introduce el nombre de la persona que va a hacer la reserva: ");
         this.cinema.getSeatManagement().addCinemaSeat(new CinemaSeat(row, seatNumber, person));
     }
 
-    public void cancelReservation() {
-        String person = enterPerson("Introduce el nombre de la persona a la que cancelar la reserva: ");
+    public void cancelReservationBySeat() {
         int seatNumber = enterCinemaSeat();
         int row = enterRow();
-        cinema.getSeatManagement().removeCinemaSeat(row, seatNumber, person);
+        int indexSeat = this.cinema.getSeatManagement().findCinemaSeat(row, seatNumber);
+        if (indexSeat == -1) {
+            System.out.println("El asiento nº " + seatNumber + " fila " + row + " esta vacío");
+        } else {
+            String person = this.cinema.getSeatManagement().getCinemaSeats().get(indexSeat).getPerson();
+            this.cinema.getSeatManagement().removeCinemaSeat(row, seatNumber, person);
+        }
+    }
+
+    public int findPerson(String person) {
+        int indexPerson = -1;
+        boolean found = false;
+        int i = 0;
+        while (i < this.cinema.getSeatManagement().getCinemaSeats().size() && !found) {
+            if (this.cinema.getSeatManagement().getCinemaSeats().get(i).getPerson().equalsIgnoreCase(person)) {
+                indexPerson = i;
+                found = true;
+            }
+            i++;
+        }
+        return indexPerson;
     }
 
     public void cancelReservationByPerson() {
         int seatCounter = 0;
-        String person = enterPerson("Introduce el nombre de la persona a la que cancelar las reservas: ");
-        for (int i = 0; i < this.cinema.getSeatManagement().getCinemaSeats().size(); i++) {
-            if (this.cinema.getSeatManagement().getCinemaSeats().get(i).getPerson().equalsIgnoreCase(person)) {
-                cinema.getSeatManagement().getCinemaSeats().remove(i);
-                i--; // Offsets deleted position
-                seatCounter++;
+        String person = KeyboardInput.readString("Introduce el nombre de la persona a la que cancelar las reservas: ");
+        int indexPerson = findPerson(person);
+        if (indexPerson != -1) {
+            List<CinemaSeat> seats = this.cinema.getSeatManagement().getCinemaSeats();
+            Iterator<CinemaSeat> iterator = seats.iterator();
+            while (iterator.hasNext()) {
+                CinemaSeat seat = iterator.next();
+                if (seat.getPerson().equalsIgnoreCase(person)) {
+                    iterator.remove();
+                    seatCounter++;
+                }
             }
         }
         if (seatCounter > 0) {
@@ -79,57 +111,42 @@ public class CinemaManagement {
         }
     }
 
-    public String enterPerson(String message){
-        boolean correct = false;
-        String person;
-        do {
-            person = KeyboardInput.readString(message);
-            try {
-                if (person.matches("\\d+")) {
-                    throw new IncorrectPersonNameException("el nombre de la persona no puede contener números");
-                }
-                correct = true;
-            } catch (IncorrectPersonNameException e) {
-                System.out.println("Error, " + e.getMessage());
-            }
-        } while (!correct);
-        return person;
+    private void checkEnterRow(int row) {
+        if (row > this.cinema.getNumberOfRows() || row < 1) {
+            throw new InvalidRowException("número de fila incorrecto, fila màx: " + cinema.getNumberOfRows());
+        }
     }
 
     public int enterRow() {
-        int row = 0;
-        boolean correct = false;
-        do {
+        while (true) {
             try {
-                row = KeyboardInput.readInteger("Introduce el número de fila: ");
-                if (row > this.cinema.getNumberOfRows() || row < 1) {
-                    throw new InvalidRowException("número de fila incorrecto, fila màx: " + cinema.getNumberOfRows());
-                }
-                correct = true;
+                int row = KeyboardInput.readInteger("Introduce el número de fila: ");
+                checkEnterRow(row);
+                return row;
             } catch (InvalidRowException e) {
                 System.out.println("Error, " + e.getMessage());
             }
-        } while (!correct);
-        return row;
+        }
+    }
+
+    private void checkEnterCinemaSeat(int seatNumber) {
+        if (seatNumber > this.cinema.getSeatsPerRow() || seatNumber < 1) {
+            throw new IncorrectSeatException(
+                    "número de asiento incorrecto, asiento màx: " + cinema.getSeatsPerRow()
+            );
+        }
     }
 
     public int enterCinemaSeat() {
-        int seatNumber = 0;
-        boolean correct = false;
-        do {
+        while (true) {
             try {
-                seatNumber = KeyboardInput.readInteger("Introduce el número de asiento: ");
-                if (seatNumber > this.cinema.getSeatsPerRow() || seatNumber < 1) {
-                    throw new IncorrectSeatException(
-                            "número de asiento incorrecto, asiento màx: " + cinema.getSeatsPerRow()
-                    );
-                }
-                correct = true;
+                int seatNumber = KeyboardInput.readInteger("Introduce el número de asiento: ");
+                checkEnterCinemaSeat(seatNumber);
+                return seatNumber;
             } catch (IncorrectSeatException e) {
                 System.out.println("Error, " + e.getMessage());
             }
-        } while (!correct);
-        return seatNumber;
+        }
     }
 
 }

@@ -1,0 +1,96 @@
+Nivel 1:
+
+1- Evita arrojar y capturar la excepción en el mismo método:  public void calculateTotal() {
+
+        try {
+
+            if (this.products.isEmpty()) {
+
+                throw new VendaBuidaException("per fer una venda primer has d’afegir productes");
+
+            }
+
+            for (Product product : this.products) {
+
+                this.totalPrice += product.getPrice();
+
+            }
+
+            System.out.println("El total de vendes és de " + this.totalPrice + "€");
+
+        } catch (VendaBuidaException e) {
+
+            System.out.println("Error capturat, " + e.getMessage());
+
+        }
+
+    }
+
+
+
+Nivel 2:
+
+1- Evita el uso de banderas en los método de la clase Input.
+
+2- Evita capturar y arrojar la excepción en el mismo método.
+
+3- Revisa los método que están utilizando varios bloques try y capturando demasiadas excepciones.
+
+
+
+Nivel 3:
+
+1- Evita utilizar conceptos como Controller que son propios de APIs.
+
+
+
+2- Por convención el nombre de la clase debería ser: FreeSeatException. Revisa el nombre de las excepciones.
+
+
+
+3- Evita las validaciones anidadas: showCinemaSeatByPerson().
+
+
+
+4- El nombre reserveCinemaSeat podría ser redundante. Intenta reserveSeat(). Lo mismo sucede con showCinemaSeatByPerson y showCinemaSeats.
+
+------------
+PENDIENTE
+5- En el método cancelReservationByPerson se encuentran los siguientes problemas:
+
+Modificación de la lista mientras se recorre: Al eliminar elementos de la lista (cinemaSeats) mientras la recorres con un for, el índice cambia, lo que hace que puedas saltarte elementos.
+
+Uso de un for manual para recorrer la lista: La lógica de recorrer la lista puede ser simplificada usando estructuras más modernas, como un Iterator o el uso de streams.
+
+Rendimiento: Si la lista de asientos es grande, eliminar elementos de la lista repetidamente puede ser ineficiente.
+--------------
+
+6- El nombre enterPerson no es descriptivo con su funcionalidad. ¿Para que se utiliza el argumento message que recibe? El método no debería lanzar y capturar una excepción.
+
+
+7- Revisa el método enterRow y enterCinemaSeat.
+
+8- Evita el uso de banderas:
+
+ public int findCinemaSeat(int row, int seatNumber, String person) {
+
+        int indexCinemaSeat = -1, i = 0;
+
+        boolean found = false;
+
+        CinemaSeat seat = new CinemaSeat(row, seatNumber, person);
+
+        while (i < this.cinemaSeats.size() && !found) {
+            if (cinemaSeats.get(i).equals(seat)) {
+                indexCinemaSeat = i;
+                found = true;
+            }
+            i++;
+        }
+        return indexCinemaSeat;
+    }
+
+
+9- Revisa los métodos: addCinemaSeat y removeCinemaSeat.
+
+10- Revisa los métodos de la clase: KeyboardInput.

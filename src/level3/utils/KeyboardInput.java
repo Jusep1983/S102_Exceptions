@@ -1,79 +1,83 @@
 package level3.utils;
-
 import level3.exceptions.EmptyInputException;
-import level3.exceptions.ExceptionValueOutOfRange;
+import level3.exceptions.ValueOutOfRangeException;
 import level3.exceptions.IncorrectNameException;
-
-import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class KeyboardInput {
     private static final Scanner SC = new Scanner(System.in);
 
-    public static int readInteger(String message) {
-        int number = 0;
-        boolean correct = false;
+    public static void numberNotEmpty(String input) throws EmptyInputException {
+        if (input.isEmpty()) {
+            throw new EmptyInputException("el campo no puede estar vacío");
+        }
+    }
 
-        do {
+    public static int readInteger(String message) {
+        while (true) {
             System.out.print(message);
             try {
-                number = SC.nextInt();
-                correct = true;
-            } catch (InputMismatchException ex) {
+                String input = SC.nextLine();
+                numberNotEmpty(input);
+                return Integer.parseInt(input);
+            } catch (NullPointerException | NumberFormatException e) {
                 System.out.println("Error de formato");
+            } catch (EmptyInputException | NoSuchElementException | IllegalStateException e) {
+                System.out.println("Error, " + e.getMessage());
             }
-            SC.nextLine();
-        } while (!correct);
-        return number;
+        }
+    }
+
+    public static String checkString(String message) throws EmptyInputException {
+        System.out.print(message);
+        String inputStr = SC.nextLine().trim();
+        if (inputStr.isEmpty()) {
+            throw new EmptyInputException("el String no puede estar vacío");
+        } else if (inputStr.matches(".*\\d.*")) {
+            throw new IncorrectNameException("el nombre no puede contener números");
+        } else {
+            return inputStr;
+        }
     }
 
     public static String readString(String message) {
-        String inputStr = "";
-        boolean correct = false;
-        do {
-            System.out.print(message);
+        while (true) {
             try {
-                inputStr = SC.nextLine().trim();
-                if (inputStr.matches(".*\\d.*")) {
-                    throw new IncorrectNameException("el nombre no puede contener números");
-                }
-                if (inputStr.isEmpty()) {
-                    throw new EmptyInputException("el nombre no puede estar vacío");
-                }
-                correct = true;
-            } catch (EmptyInputException | IncorrectNameException e) {
+                return checkString(message);
+            } catch (EmptyInputException | IncorrectNameException | NoSuchElementException | IllegalStateException e) {
                 System.out.println("Error, " + e.getMessage());
             }
-        } while (!correct);
-        return inputStr;
+        }
+    }
+
+    public static void checkRangeNumber(String input,int minimum, int maximum) throws ValueOutOfRangeException {
+        int number = Integer.parseInt(input);
+        if (number < minimum || number > maximum) {
+            throw new ValueOutOfRangeException(
+                    "el valor introducido ha de estar entre " + minimum + " y " + maximum + ". "
+            );
+        }
     }
 
     public static int readIntegerBetweenOnRange(String message, int minimum, int maximum) {
-        int number = 0;
-        boolean correct = false;
-        do {
+        while (true) {
             System.out.print(message);
             try {
-                number = SC.nextInt();
-                if (number < minimum || number > maximum) {
-                    throw new ExceptionValueOutOfRange(
-                            "el valor introducido ha de estar entre " + minimum + " y " + maximum + ". "
-                    );
-                } else {
-                    correct = true;
-                }
-            } catch (ExceptionValueOutOfRange e) {
-                System.out.println("Error, " + e.getMessage());
-            } catch (InputMismatchException ex) {
+                String input = SC.nextLine();
+                numberNotEmpty(input);
+                checkRangeNumber(input,minimum,maximum);
+                return Integer.parseInt(input);
+            } catch (NullPointerException | NumberFormatException e) {
                 System.out.println("Error de formato");
+            } catch (EmptyInputException | NoSuchElementException | IllegalStateException | ValueOutOfRangeException e) {
+                System.out.println("Error, " + e.getMessage());
             }
-            SC.nextLine();
-        } while (!correct);
-        return number;
+        }
     }
 
     public static int menuOption() {
-        int option = readIntegerBetweenOnRange(""" 
+        return readIntegerBetweenOnRange(""" 
                 
                 MENÚ PRINCIPAL CINE
                 1.- Mostrar todos los asientos reservados
@@ -83,7 +87,6 @@ public class KeyboardInput {
                 5.- Anular todas las reservas de una persona
                 0.- Salir
                 """, 0, 5);
-        return option;
     }
 
 }

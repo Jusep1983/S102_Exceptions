@@ -17,18 +17,14 @@ public class Sale {
         return products;
     }
 
-    public void calculateTotal() {
-        try {
-            if (this.products.isEmpty()) {
-                throw new VendaBuidaException("per fer una venda primer has d’afegir productes");
-            }
-            for (Product product : this.products) {
-                this.totalPrice += product.getPrice();
-            }
-            System.out.println("El total de vendes és de " + this.totalPrice + "€");
-        } catch (VendaBuidaException e) {
-            System.out.println("Error capturat, " + e.getMessage());
+    public void calculateTotal() throws VendaBuidaException {
+        if (this.products.isEmpty()) {
+            throw new VendaBuidaException("per fer una venda primer has d’afegir productes");
         }
+        for (Product product : this.products) {
+            this.totalPrice += product.getPrice();
+        }
+        System.out.println("El total de vendes és de " + this.totalPrice + "€");
     }
 
     @Override

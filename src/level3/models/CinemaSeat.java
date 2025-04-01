@@ -1,5 +1,7 @@
 package level3.models;
 
+import java.util.Objects;
+
 public class CinemaSeat {
     private int row;
     private int seatNumber;
@@ -23,12 +25,19 @@ public class CinemaSeat {
         return person;
     }
 
-    public boolean equals(CinemaSeat seat) {
-        boolean equal = false;
-        if (this.row == seat.getRow() && this.seatNumber == seat.getSeatNumber()) {
-            equal = true;
-        }
-        return equal;
+    public boolean equalsSeat(int row, int seatNumber) {
+        return this.row == row && this.seatNumber == seatNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof CinemaSeat that)) return false;
+        return row == that.row && seatNumber == that.seatNumber && Objects.equals(person, that.person);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(row, seatNumber, person);
     }
 
     @Override

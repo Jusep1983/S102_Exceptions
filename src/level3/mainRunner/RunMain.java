@@ -1,4 +1,4 @@
-package level3.controller;
+package level3.mainRunner;
 
 import level3.models.Cinema;
 import level3.utils.KeyboardInput;
@@ -10,16 +10,16 @@ public class RunMain {
         while (!exit) {
             switch (KeyboardInput.menuOption()) {
                 case 1:
-                    cinema.getCinemaManagement().showCinemaSeats();
+                    cinema.getCinemaManagement().showAllCinemaSeatsOnCinema();
                     break;
                 case 2:
-                    cinema.getCinemaManagement().showCinemaSeatByPerson();
+                    cinema.getCinemaManagement().checkCinemaSeatByPerson();
                     break;
                 case 3:
-                    cinema.getCinemaManagement().reserveCinemaSeat();
+                    cinema.getCinemaManagement().reserveSeat();
                     break;
                 case 4:
-                    cinema.getCinemaManagement().cancelReservation();
+                    cinema.getCinemaManagement().cancelReservationBySeat();
                     break;
                 case 5:
                     cinema.getCinemaManagement().cancelReservationByPerson();
