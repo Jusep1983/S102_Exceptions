@@ -11,17 +11,22 @@ public class Input {
 
     private static final Scanner SC = new Scanner(System.in);
 
+    public static String readInput(String message) {
+        System.out.print(message);
+        return SC.nextLine().trim();
+    }
+
     public static void numberNotEmpty(String input) throws EmptyInputException {
         if (input.isEmpty()) {
-            throw new EmptyInputException("el campo no puede estar vacío");
+            throw new EmptyInputException(", el campo no puede estar vacío");
         }
     }
 
-    public static byte readByte(String message) {
+    public static byte getByte(String message) {
         while (true) {
             System.out.print(message);
             try {
-                String input = SC.nextLine();
+                String input = readInput(message);
                 numberNotEmpty(input);
                 return Byte.parseByte(input);
             } catch (NullPointerException | NumberFormatException e) {
@@ -33,11 +38,11 @@ public class Input {
     }
 
 
-    public static int readInteger(String message) {
+    public static int getInteger(String message) {
         while (true) {
             System.out.print(message);
             try {
-                String input = SC.nextLine();
+                String input = readInput(message);
                 numberNotEmpty(input);
                 return Integer.parseInt(input);
             } catch (NullPointerException | NumberFormatException e) {
@@ -48,11 +53,11 @@ public class Input {
         }
     }
 
-    public static float readFloat(String message) {
+    public static float getFloat(String message) {
         while (true) {
             System.out.print(message);
             try {
-                String input = SC.nextLine();
+                String input = readInput(message);
                 numberNotEmpty(input);
                 return Float.parseFloat(input);
             } catch (NullPointerException | NumberFormatException e) {
@@ -63,11 +68,11 @@ public class Input {
         }
     }
 
-    public static double readDouble(String message) {
+    public static double getDouble(String message) {
         while (true) {
             System.out.print(message);
             try {
-                String input = SC.nextLine();
+                String input = readInput(message);
                 numberNotEmpty(input);
                 return Double.parseDouble(input);
             } catch (NullPointerException | NumberFormatException e) {
@@ -78,7 +83,7 @@ public class Input {
         }
     }
 
-    public static char readChar(String message) {
+    public static char getChar(String message) {
         while (true) {
             try {
                 return checkChar(message);
@@ -91,7 +96,7 @@ public class Input {
 
     public static char checkChar(String message) throws EmptyInputException, InvalidCharLengthException {
         System.out.print(message);
-        String inputStr = SC.nextLine().trim();
+        String inputStr = readInput(message);
         if (inputStr.isEmpty()) {
             throw new EmptyInputException("el carácter no puede estar vacío");
         } else if (inputStr.length() != 1) {
@@ -104,7 +109,7 @@ public class Input {
 
     public static String checkString(String message) throws EmptyInputException {
         System.out.print(message);
-        String inputStr = SC.nextLine().trim();
+        String inputStr = readInput(message);
         if (inputStr.isEmpty()) {
             throw new EmptyInputException("el String no puede estar vacío");
         } else {
@@ -112,7 +117,7 @@ public class Input {
         }
     }
 
-    public static String readString(String message) {
+    public static String getString(String message) {
         while (true) {
             try {
                 return checkString(message);
@@ -122,7 +127,7 @@ public class Input {
         }
     }
 
-    public static boolean readYesNo(String message) {
+    public static boolean getBoolean(String message) {
         while (true) {
             try {
                 return checkBoolean(message);
@@ -136,7 +141,7 @@ public class Input {
     public static boolean checkBoolean(String message)
             throws EmptyInputException, InvalidCharLengthException, IsNotSOrNException {
         System.out.print(message);
-        String inputStr = SC.nextLine();
+        String inputStr = readInput(message);
         if (inputStr.isEmpty()) {
             throw new EmptyInputException("el carácter no puede estar vacío");
         } else if (inputStr.length() != 1) {

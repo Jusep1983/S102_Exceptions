@@ -11,13 +11,9 @@ public class MainLevel1 {
             sale1.getProducts().add(new Product("banana", 10.2));
             sale1.getProducts().add(new Product("Apple", 5.3));
             sale1.calculateTotal();
-        } catch (EmptySaleException e) {
-            System.out.println("Error capturat, " + e.getMessage());
-        }
-        try{
             sale1.getProducts().get(2);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Error capturat " + e.getMessage());
+        } catch (EmptySaleException | IndexOutOfBoundsException e) {
+            System.out.println("Error capturat, " + e.getMessage());
         }
     }
 

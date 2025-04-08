@@ -93,7 +93,9 @@ public class CinemaManagement {
         int seatCounter = 0;
         String person = KeyboardInput.readString("Introduce el nombre de la persona a la que cancelar las reservas: ");
         int indexPerson = findPerson(person);
-        if (indexPerson != -1) {
+        if (indexPerson == -1) {
+            System.out.println("No existe ningún asiento reservado por " + person + " en la sala");
+        } else {
             List<CinemaSeat> seats = this.cinema.getSeatManagement().getCinemaSeats();
             Iterator<CinemaSeat> iterator = seats.iterator();
             while (iterator.hasNext()) {
@@ -103,11 +105,7 @@ public class CinemaManagement {
                     seatCounter++;
                 }
             }
-        }
-        if (seatCounter > 0) {
             System.out.println(person + " ha cancelado sus " + seatCounter + " asientos");
-        } else {
-            System.out.println("No existe ningún asiento reservado por " + person + " en la sala");
         }
     }
 
