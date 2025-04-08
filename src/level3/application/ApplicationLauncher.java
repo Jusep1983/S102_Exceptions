@@ -1,9 +1,10 @@
-package level3.mainRunner;
+package level3.application;
 
 import level3.models.Cinema;
 import level3.utils.KeyboardInput;
 
-public class RunMain {
+public class ApplicationLauncher {
+
     public static void start(Cinema cinema) {
         boolean exit = false;
 

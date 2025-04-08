@@ -14,11 +14,15 @@ public class KeyboardInput {
         }
     }
 
+    public static String readInput() {
+        return SC.nextLine().trim();
+    }
+
     public static int readInteger(String message) {
         while (true) {
             System.out.print(message);
             try {
-                String input = SC.nextLine();
+                String input = readInput();
                 numberNotEmpty(input);
                 return Integer.parseInt(input);
             } catch (NullPointerException | NumberFormatException e) {
@@ -30,7 +34,7 @@ public class KeyboardInput {
     }
 
     public static String checkString() throws EmptyInputException {
-        String inputStr = SC.nextLine().trim();
+        String inputStr = readInput();
         if (inputStr.isEmpty()) {
             throw new EmptyInputException("el String no puede estar vacío");
         } else if (inputStr.matches(".*\\d.*")) {
@@ -64,7 +68,7 @@ public class KeyboardInput {
         while (true) {
             try {
                 System.out.print(message);
-                String input = SC.nextLine();
+                String input = readInput();
                 numberNotEmpty(input);
                 checkRangeNumber(input,minimum,maximum);
                 return Integer.parseInt(input);
